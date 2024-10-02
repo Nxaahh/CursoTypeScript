@@ -137,8 +137,116 @@ switch (tarea1.estado){
 //Try Catch
 
 try{
-    let numero1:number = null;
-    console.log(numero1.toString())
+    //let numero1:number = null;
+   // console.log(numero1.toString())
 }catch(error){
 console.log("Se ha producido un error al convertir un numero en String")
 }
+
+//Video 2
+
+
+
+//Video 3
+
+
+//for
+
+for(let x=0;x<10;x++){
+
+    console.log("Numero: "+x)
+
+}
+
+//foreach
+
+
+let tarea2 : Tarea = {estado: EstadoTarea.Terminado,nombre: "Tarea 2", prioridad: 0}
+let tarea3 : Tarea = {estado: EstadoTarea.Terminado,nombre: "Tarea 3", prioridad: 3}
+
+let listaTareas:Tarea[] = [tarea1,tarea2,tarea3]
+
+//(valor1,valor2,valor3) => { }   FUNCION ARROW
+//function operar (valor1:number,valor2:number,valor3:number){ }
+
+listaTareas.forEach((elemento,indice,listaTareas)=>{console.log(`${elemento.nombre} - ${indice} - ${listaTareas} `)})
+
+for(let indice =0;indice<listaTareas.length;indice++){
+    let elemento = listaTareas[indice]
+    console.log(elemento)
+}
+//while
+/*while(){
+
+}
+
+//do while
+
+do{
+
+}while()
+
+*/
+//functions
+/**
+ * Dado el parametro nombre muestra por pantalla un saludo
+ * @param nombre 
+ */
+function saludar(nombre:string ="Noah",direccion: string | number, apellido?:string ): void{
+    if(apellido != undefined){
+        console.log(`Hola ${nombre} ${apellido} Vives en la calle ${direccion} `)
+    }
+    else{
+        console.log(`Hola ${nombre}`);
+    }
+    if(typeof(direccion)== "string"){
+        console.log(`Vives en la calle ${direccion}`)
+    }
+
+}
+saludar(undefined,"Martin")
+saludar(undefined,"Moron","Montaño")
+
+
+//funciones anonimas
+
+let fanonima = function (){console.log("Hola mundo")}
+console.log(fanonima)
+
+
+
+let fitera = function(elemento:Tarea,indice:number){
+    console.log(`La tarea ${elemento.nombre} esta en la posicion ${indice}`)
+}
+listaTareas.forEach(fitera)
+
+
+//Funcion con multiples parametros
+
+function muestraTareas(... tareas:Tarea[]): void{
+
+    tareas.forEach(fitera)
+
+}
+console.log("muestra tareas")
+let tarea4 : Tarea = {estado: EstadoTarea.Terminado,nombre: "Tarea 4", prioridad: 0}
+let tarea5 : Tarea = {estado: EstadoTarea.Terminado,nombre: "Tarea 5", prioridad: 3}
+muestraTareas(tarea1,tarea2,tarea3,tarea4,tarea5)
+
+
+
+let listadoTareas2:Tarea[]=[...listaTareas,tarea4,tarea5]
+console.log("muestratareas listado2")
+muestraTareas(...listadoTareas2)
+
+
+//funcion farrow
+console.log("farrow")
+let farrow = (tarea:Tarea, indice:number)=>{
+    console.log(`${indice} - ${tarea.nombre}`)
+}
+farrow(tarea1,1)
+listadoTareas2.forEach(farrow)
+listadoTareas2.forEach((tarea:Tarea)=>{console.log(`${tarea.nombre}`)})
+listadoTareas2.forEach(function (tarea:Tarea){console.log(`${tarea.nombre}`) })
+
