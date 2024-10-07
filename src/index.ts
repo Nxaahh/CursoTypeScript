@@ -250,3 +250,51 @@ listadoTareas2.forEach(farrow)
 listadoTareas2.forEach((tarea:Tarea)=>{console.log(`${tarea.nombre}`)})
 listadoTareas2.forEach(function (tarea:Tarea){console.log(`${tarea.nombre}`) })
 
+
+
+//CALLBACK
+
+let fsuma = function suma(a:number,b:number){
+    return a+b;
+}
+let fresta = function resta(a:number,b:number){
+    return a-b;
+}
+
+
+function opera(x:number,y:number,funcion:(a:number,b:number)=>number){
+    return funcion(x,y)
+}
+opera(1,2,fsuma);
+opera(1,2,fresta);
+
+
+//Asyncrona
+/*
+async function asincrona(){
+    let suma:number =0;
+    for(let i =0;i<10000000000;i++){
+        suma+=i;
+    }
+    return suma;
+}
+
+asincrona().then((data:number)=>{console.log(`El resultado de ejecutar asyn = ${data}`)});
+console.log("Linea posterior a la funcion asincrona")
+*/
+type University ={
+    domains:string[],
+    alpha_two_code:string,
+    name:string
+
+}
+
+
+async function  getDataUniversity() : Promise<University[ ]> {
+    const data = await fetch("http://universities.hipolabs.com/search?country=Spain");
+    let respuesta:Promise<University[]> =await data.json() as Promise<University[]>
+    return respuesta;
+}
+getDataUniversity().then((data:University[])=>{
+    data.forEach((universidad)=>{console.log(universidad.name)})
+    })
