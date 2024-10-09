@@ -322,7 +322,7 @@ getDataUniversity().then((data:University[])=>{
         Description:string
 
     }
-
+/*
     async function* obtenerDatosWeb():AsyncGenerator<WebPage>{
         let peticion = await fetch("https://haveibeenpwned.com/api/v2/breaches");
         let datos: WebPage[] = await peticion.json() as WebPage[];
@@ -333,8 +333,9 @@ getDataUniversity().then((data:University[])=>{
 
     }
     let datosWebPage =obtenerDatosWeb();
+        datosWebPage.next().then(({value,done})=>{console.log(`${value.Name} -- ${value.Description} `)});
 
-    datosWebPage.next().then(({value,done})=>{console.log(`${value.Name} -- ${value.Description} `)});
+*/
     //SOBRECARGA DE FUNCIONES
     function saludarSobrecarga (nombre:string):string;
     function saludarSobrecarga (nombre:string,apellido:string):string;
@@ -384,5 +385,59 @@ getDataUniversity().then((data:University[])=>{
 
     //Ejercicio 4
     function ej4(type:string="session",key:string){
-        isGeneratorFunction()
+        let valor;
+        if(type=="session"){
+           valor = sessionStorage.getItem(key);
+        }else if(type=="local"){
+            valor = localStorage.getItem(key)
+        }
+        for(let i = 0;i<arrayTareas.length;i++){
+            console.log(`El valor es`+key[i])
+        }
+       
     }
+
+    //Ejercicio 5
+
+    ej4("local","datos")
+    ej4("session","datos")
+
+    //Ejercicio 6
+    function ej6(type:string,key:string){
+        if(type == "local"){
+            console.log("LocalStoragge antes de borrar:" +localStorage.length)
+            while(localStorage.length!=0){
+             localStorage.removeItem(key)
+            }
+            console.log("Localstorage tras borrar: "+localStorage.length)
+
+        }
+        if(type=="session"){
+            console.log("sessionstorage antes de borrar: "+sessionStorage.length)
+            while(sessionStorage.length!=0){
+             sessionStorage.removeItem(key)
+            }
+            console.log("sessionstorage tras borrar: "+sessionStorage.length)
+        }
+      
+
+    }
+
+    ej6("local","datos")
+    ej6("session","datos")
+
+
+    //Ejercicio 7
+    import Cookies from "js-cookie";
+    Cookies.set("nombre", "Noah", {expires:7,path:"/"});
+    Cookies.set("apellido","Montaño",{expires:2});
+    Cookies.set("email","nmonmun0411@iescarrillo.es",{expires:4});
+    console.log(Cookies.get("nombre"));
+    console.log(Cookies.get("apellido"));
+    console.log(Cookies.get("email"));
+    Cookies.remove("nombre");
+    Cookies.remove("apellido");
+    Cookies.remove("email");
+    console.log(Cookies.get("nombre"));
+    console.log(Cookies.get("apellido"));
+    console.log(Cookies.get("email"));
