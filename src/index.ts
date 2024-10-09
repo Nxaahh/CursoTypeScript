@@ -289,7 +289,7 @@ type University ={
 
 }
 
-
+/*
 async function  getDataUniversity() : Promise<University[ ]> {
     const data = await fetch("http://universities.hipolabs.com/search?country=Spain");
     let respuesta:Promise<University[]> =await data.json() as Promise<University[]>
@@ -298,3 +298,58 @@ async function  getDataUniversity() : Promise<University[ ]> {
 getDataUniversity().then((data:University[])=>{
     data.forEach((universidad)=>{console.log(universidad.name)})
     })
+*/
+
+
+
+    //ASYNC GENERADORA
+
+    function* fgeneradora2():Generator<string>{
+        yield "Hola";
+        yield "Mundo"
+        yield "IES"
+    }
+
+    let llamadafgen2 =fgeneradora2();
+    console.log(llamadafgen2.next());
+    console.log(llamadafgen2.next());
+    console.log(llamadafgen2.next());
+    console.log(llamadafgen2.next())
+
+    type WebPage={
+        Name:string,
+        Domain:string,
+        Description:string
+
+    }
+
+    async function* obtenerDatosWeb():AsyncGenerator<WebPage>{
+        let peticion = await fetch("https://haveibeenpwned.com/api/v2/breaches");
+        let datos: WebPage[] = await peticion.json() as WebPage[];
+
+        for(let i=0;i<datos.length;i++){
+            yield datos[i];
+        }
+
+    }
+    let datosWebPage =obtenerDatosWeb();
+
+    datosWebPage.next().then(({value,done})=>{console.log(`${value.Name} -- ${value.Description} `)});
+    //SOBRECARGA DE FUNCIONES
+    function saludarSobrecarga (nombre:string):string;
+    function saludarSobrecarga (nombre:string,apellido:string):string;
+    function saludarSobrecarga (nombre:string,apellido:string,edad:string):string;
+
+    function saludarSobrecarga(nombre:string,apellido?:string,edad?:string){
+        let saludo = `Hola ${nombre} `
+
+        if(apellido !=undefined){
+            saludo = saludo+` ${apellido}`
+        }
+        if(edad != undefined){
+            saludo = saludo+` ${edad}`
+        }
+        console.log(saludo)    }
+    saludarSobrecarga("Manuel");
+    saludarSobrecarga("Miguel","32")
+    saludarSobrecarga("Miguel","Martinez","82")
