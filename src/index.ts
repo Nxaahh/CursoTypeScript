@@ -370,3 +370,19 @@ getDataUniversity().then((data:University[])=>{
             console.log("No se ha almacenado")
         }
     }
+
+    //Ejercicio 3
+
+    let tarea:Tarea ={nombre:"Tarea",prioridad:2,estado:EstadoTarea.Terminado}
+    let tarea01:Tarea={nombre:"Tarea01",prioridad:3,estado:EstadoTarea.Pendiente}
+    let tarea02:Tarea={nombre:"Tarea02",prioridad:1,estado:EstadoTarea.EnProceso}
+    let arrayTareas:Tarea[]= [tarea,tarea01,tarea02]
+
+    ej2("session","datos",arrayTareas)
+    ej2("local","datos",arrayTareas)
+
+
+    //Ejercicio 4
+    function ej4(type:string="session",key:string){
+        isGeneratorFunction()
+    }
