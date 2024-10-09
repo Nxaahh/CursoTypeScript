@@ -349,7 +349,24 @@ getDataUniversity().then((data:University[])=>{
         if(edad != undefined){
             saludo = saludo+` ${edad}`
         }
-        console.log(saludo)    }
+        return saludo;
+    }
     saludarSobrecarga("Manuel");
     saludarSobrecarga("Miguel","32")
     saludarSobrecarga("Miguel","Martinez","82")
+
+
+
+
+    //Ejercicio 2
+    function ej2(type:string ="SessionStorage", key:string, data:Tarea[]){
+        if(type == "session"){
+            sessionStorage.setItem(key,data.toString())
+            console.log("Almacenado en sessionStorage")
+        }else if(type == "local"){
+            localStorage.setItem(key,data.toString())
+            console.log("Almacenado en localstorage")
+        }else{
+            console.log("No se ha almacenado")
+        }
+    }
