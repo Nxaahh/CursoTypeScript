@@ -441,3 +441,38 @@ getDataUniversity().then((data:University[])=>{
     console.log(Cookies.get("nombre"));
     console.log(Cookies.get("apellido"));
     console.log(Cookies.get("email"));
+
+
+
+
+    ////Acceder a los elemenots del DOM
+
+    let input = document.getElementById("input-contenido") as HTMLInputElement;
+    let btnNuevoContenido = document.getElementsByName("btn-add-content")[0] as HTMLButtonElement;
+    let div=document.getElementsByTagName("div") as HTMLCollectionOf<HTMLDivElement>
+
+    console.log(input)
+    console.log(btnNuevoContenido)
+    console.log(div)
+
+    let elementoOl = document.querySelector("#lista-contenidos") as HTMLOListElement;
+    let elementosLI = document.getElementById("lista-contenidos")?.getElementsByTagName("li")
+    let elementosLI2 = document.querySelectorAll("ol[id='lista-contenidos']>li")
+
+    console.log(elementosLI)
+    console.log(elementosLI2)
+
+    //Creacion de elementos
+    let nuevoElemento:HTMLLIElement = document.createElement("li");
+    nuevoElemento.innerText = "Nuevo Elemento"
+    elementoOl.prepend(nuevoElemento)
+    
+    //apend y apenchild lo añade al final
+    //prepend lo añade el primero
+
+    btnNuevoContenido.addEventListener("click",(event)=>{
+        //TODO:
+        console.log("Usuario hace click en el boton")
+    })
+    
+    
