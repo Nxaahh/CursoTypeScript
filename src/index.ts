@@ -429,6 +429,7 @@ getDataUniversity().then((data:University[])=>{
 
     //Ejercicio 7
     import Cookies from "js-cookie";
+import { eventNames } from "process";
     Cookies.set("nombre", "Noah", {expires:7,path:"/"});
     Cookies.set("apellido","Montaño",{expires:2});
     Cookies.set("email","nmonmun0411@iescarrillo.es",{expires:4});
@@ -445,34 +446,58 @@ getDataUniversity().then((data:University[])=>{
 
 
 
-    ////Acceder a los elemenots del DOM
+  
 
-    let input = document.getElementById("input-contenido") as HTMLInputElement;
-    let btnNuevoContenido = document.getElementsByName("btn-add-content")[0] as HTMLButtonElement;
-    let div=document.getElementsByTagName("div") as HTMLCollectionOf<HTMLDivElement>
+    //Input BotonADD BotonRMV Lista(Si pulso BotonADD añado a la lista, si pulso RMV (elemento que coincida)se borra de la lista)
+    let botonadd= document.getElementsByName("btn-add-content")[0] as HTMLButtonElement;
+    let input2 = document.getElementById("input-contenido") as HTMLInputElement;
+let lista =document.getElementById("lista-contenidos") as HTMLOListElement;
+    botonadd.addEventListener('click',()=>{
+        console.log("click")
 
-    console.log(input)
-    console.log(btnNuevoContenido)
-    console.log(div)
-
-    let elementoOl = document.querySelector("#lista-contenidos") as HTMLOListElement;
-    let elementosLI = document.getElementById("lista-contenidos")?.getElementsByTagName("li")
-    let elementosLI2 = document.querySelectorAll("ol[id='lista-contenidos']>li")
-
-    console.log(elementosLI)
-    console.log(elementosLI2)
-
-    //Creacion de elementos
-    let nuevoElemento:HTMLLIElement = document.createElement("li");
-    nuevoElemento.innerText = "Nuevo Elemento"
-    elementoOl.prepend(nuevoElemento)
-    
-    //apend y apenchild lo añade al final
-    //prepend lo añade el primero
-
-    btnNuevoContenido.addEventListener("click",(event)=>{
-        //TODO:
-        console.log("Usuario hace click en el boton")
+        if(input2.value.trim()!=""){
+            let elementonuevo = document.createElement("li")
+            elementonuevo.innerText=input2.value;
+            lista.appendChild(elementonuevo);
+            input2.value=""
+        }
     })
-    
-    
+
+    let BotonRMV = document.getElementsByName("btn-rmv-content")[0] as HTMLButtonElement;
+
+    BotonRMV.addEventListener("click",()=>{
+        console.log("Cick")
+        if(lista.lastChild){
+            lista.removeChild(lista.lastChild)
+
+        }
+    })
+    let botonapi = document.getElementsByName("btn-api")[0] as HTMLButtonElement;
+
+    botonapi.addEventListener("click",async ()=>{
+        console.log("Click")
+        await ObtenerWeb()
+    })
+
+
+    async function ObtenerWeb() {
+        let peticion = await fetch("https://haveibeenpwned.com/api/v2/breaches")
+        let datos= await peticion.json()
+        for(let i =0;i<datos.length;i++){
+            let elementonuevo = document.createElement("li")
+            elementonuevo.innerText=datos[i].Name;
+            lista.appendChild(elementonuevo)
+            
+        }
+    }
+
+
+   // async function* obtenerDatosWeb():AsyncGenerator<WebPage>{
+   //     let peticion = await fetch("https://haveibeenpwned.com/api/v2/breaches");
+     //   let datos: WebPage[] = await peticion.json() as WebPage[];
+//
+  //      for(let i=0;i<datos.length;i++){
+    //        yield datos[i];
+      //  }
+
+    //}
